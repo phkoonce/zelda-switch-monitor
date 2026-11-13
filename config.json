@@ -12,7 +12,8 @@
     {
       "name": "MediaMarkt CH",
       "url": "https://www.mediamarkt.ch/de/product/_nintendo-switch-2-the-legend-of-zelda-edition-zum-40-jubilaum-konsole-2295232.html",
-      "min_interval_sec": 120
+      "min_interval_sec": 120,
+      "browser": true
     }
   ]
 }
