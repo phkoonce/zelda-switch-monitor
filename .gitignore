@@ -1,0 +1,6 @@
+.venv/
+state.json
+monitor.log
+local.json
+*.plist
+__pycache__/

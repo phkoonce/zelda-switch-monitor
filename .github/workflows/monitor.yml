@@ -1,0 +1,46 @@
+name: stock-monitor
+on:
+  schedule:
+    # UTC window covers 07-22 Zurich in both CET (UTC+1) and CEST (UTC+2);
+    # monitor.py enforces the exact Zurich hours.
+    - cron: "*/5 5-21 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Ignore the Zurich-hours gate"
+        type: boolean
+        default: false
+concurrency:
+  group: stock-monitor
+  cancel-in-progress: false
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Restore last-seen state
+        uses: actions/cache/restore@v4
+        with:
+          path: state.json
+          key: state-${{ github.run_id }}
+          restore-keys: state-
+      - name: Install Playwright
+        run: |
+          pip install playwright
+          playwright install --with-deps chromium
+      - name: Check stock
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          ACTIVE_HOURS_ONLY: ${{ inputs.force == true && '0' || '1' }}
+          MIN_GAP_OFF: "1"
+        run: python monitor.py
+      - name: Save state
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: state.json
+          key: state-${{ github.run_id }}

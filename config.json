@@ -1,0 +1,18 @@
+{
+  "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15",
+  "sites": [
+    {
+      "name": "Nintendo Store CH",
+      "url": "https://store.nintendo.com/de-ch/nintendo-switch-2-the-legend-of-zelda-edition-zum-40-jubilum-P00211",
+      "browser": true,
+      "out_of_stock_regex": "nicht vorr\u00e4tig",
+      "in_if_out_absent": true,
+      "min_interval_sec": 300
+    },
+    {
+      "name": "MediaMarkt CH",
+      "url": "https://www.mediamarkt.ch/de/product/_nintendo-switch-2-the-legend-of-zelda-edition-zum-40-jubilaum-konsole-2295232.html",
+      "min_interval_sec": 120
+    }
+  ]
+}
