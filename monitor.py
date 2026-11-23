@@ -124,6 +124,9 @@ def main():
             print(f"{name}: {e}")
         prev = state.get(name)
         print(f"{time.strftime('%H:%M:%S')} {name}: {prev} -> {status}")
+        if status in ("unknown", "blocked"):
+            t = re.search(r"<title>(.*?)</title>", html, re.S)
+            print(f"  debug: len={len(html)} title={t.group(1).strip()[:80] if t else None!r}")
         if status == "in" and prev != "in":
             push(f"IN STOCK: {name}", "Zelda Switch 2 may be available now. Tap to open.", url, "urgent")
         elif status in ("queue", "blocked", "error", "unknown") and prev != status and prev is not None:
