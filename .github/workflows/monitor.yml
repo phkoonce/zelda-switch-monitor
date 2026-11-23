@@ -3,7 +3,7 @@ on:
   schedule:
     # UTC window covers 07-22 Zurich in both CET (UTC+1) and CEST (UTC+2);
     # monitor.py enforces the exact Zurich hours.
-    - cron: "*/5 5-21 * * *"
+    - cron: "*/5 * * * *"
   workflow_dispatch:
     inputs:
       force:

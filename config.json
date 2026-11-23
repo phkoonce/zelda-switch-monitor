@@ -14,6 +14,24 @@
       "url": "https://www.mediamarkt.ch/de/product/_nintendo-switch-2-the-legend-of-zelda-edition-zum-40-jubilaum-konsole-2295232.html",
       "min_interval_sec": 120,
       "browser": true
+    },
+    {
+      "name": "Nintendo Store US",
+      "url": "https://www.nintendo.com/us/store/products/nintendo-switch-2-the-legend-of-zelda-40th-anniversary-edition-121642/",
+      "browser": true,
+      "any_hour": true,
+      "out_of_stock_regex": "schema\\.org/OutOfStock",
+      "in_stock_regex": "\"availability\":\"https://schema\\.org/(?:InStock|LimitedAvailability|PreOrder)",
+      "min_interval_sec": 300
+    },
+    {
+      "name": "Amazon.com US",
+      "url": "https://www.amazon.com/dp/B0HJ6F8L6V",
+      "browser": true,
+      "any_hour": true,
+      "out_of_stock_regex": "cannot be shipped to your selected|currently unavailable|id=\"outOfStock\"",
+      "in_stock_regex": "<input[^>]+id=\"add-to-cart-button\"",
+      "min_interval_sec": 300
     }
   ]
 }
