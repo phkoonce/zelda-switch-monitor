@@ -93,16 +93,15 @@ def classify(site, final_url, html):
     return "unknown"   # never guess "in" from loose keywords: too many false alarms
 
 def zurich_awake():
-    """True during 07:00-21:59 Europe/Zurich (handles DST). Set ACTIVE_HOURS_ONLY=1 to enforce."""
+    """True during 07:00-22:59 Europe/Zurich (handles DST). Set ACTIVE_HOURS_ONLY=1 to enforce."""
     if os.environ.get("ACTIVE_HOURS_ONLY") != "1":
         return True
     from zoneinfo import ZoneInfo
-    return 7 <= datetime.now(ZoneInfo("Europe/Zurich")).hour < 22
+    return 7 <= datetime.now(ZoneInfo("Europe/Zurich")).hour < 23
 
 def main():
-    awake = zurich_awake()
-    if not TEST and not awake and not any(s.get("any_hour") for s in CFG["sites"]):
-        print("outside 07-22 Zurich, skipping")
+    if not TEST and not zurich_awake():
+        print("quiet hours (23-07 Zurich), skipping")
         return
     if TEST:
         push("Zelda monitor test", "Push notifications work.", "https://store.nintendo.com/de-ch/", "default")
@@ -110,8 +109,6 @@ def main():
     state = json.loads(STATE_FILE.read_text()) if STATE_FILE.exists() else {}
     for site in CFG["sites"]:
         name, url = site["name"], site["url"]
-        if not awake and not site.get("any_hour"):   # Swiss shops: Zurich daytime only; US shops run 24h
-            continue
         last = state.get("_t:" + name, 0)
         if not os.environ.get("MIN_GAP_OFF") and time.time() - last < site.get("min_interval_sec", 0) - 5:
             continue

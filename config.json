@@ -19,7 +19,6 @@
       "name": "Nintendo Store US",
       "url": "https://www.nintendo.com/us/store/products/nintendo-switch-2-the-legend-of-zelda-40th-anniversary-edition-121642/",
       "browser": true,
-      "any_hour": true,
       "out_of_stock_regex": "schema\\.org/OutOfStock",
       "in_stock_regex": "\"availability\":\"https://schema\\.org/(?:InStock|LimitedAvailability|PreOrder)",
       "min_interval_sec": 300
